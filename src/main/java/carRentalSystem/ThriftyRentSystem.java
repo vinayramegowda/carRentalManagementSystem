@@ -1,3 +1,5 @@
+package carRentalSystem;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -95,7 +97,7 @@ class  ThriftyRentSystem{
 		System.out.print("Model: ");
 		String model = scan.nextLine();
 
-		if(vehicleType.equals("car")) {
+		if(vehicleType.equalsIgnoreCase("car")) {
 			System.out.print("Vehicle ID: C_");
 			vehicleID = scan.nextLine();
 			vehicleID = "C_"+vehicleID;
@@ -371,10 +373,10 @@ class  ThriftyRentSystem{
 		}
 		if(this.vans[0]==null )
 		{
-			System.out.println("There are no vans, please add cars.");
+			System.out.println("There are no vans, please add vans.");
 			return;
 		}
-		
+
 		if(this.cars[0]!=null && id.contains("C_"))
         {
 			boolean flag =false;

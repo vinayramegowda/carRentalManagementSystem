@@ -1,3 +1,5 @@
+package carRentalSystem;
+
 public class RentalRecord extends DateTime{
     private String RentId;
     private DateTime RentDate;

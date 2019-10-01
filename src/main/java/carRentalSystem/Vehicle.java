@@ -1,3 +1,4 @@
+package carRentalSystem;
 
 /**
  * Class to save all the vehicle details

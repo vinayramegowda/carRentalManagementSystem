@@ -1,3 +1,4 @@
+package carRentalSystem;
 
 /**
  * This class has the type of vehicle whether it is a car or van
