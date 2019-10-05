@@ -12,7 +12,7 @@ public class Car extends Vehicle {
     private double lateFee;
     private int seats = 0;
 
-    Car(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
+    public Car(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
         super(VehicleId, Year, Make, Model, status, vehicleType);
         seats = vehicleType.getCarSeats();
         if (seats == 7)
