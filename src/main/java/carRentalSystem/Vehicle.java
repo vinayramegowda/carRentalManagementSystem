@@ -6,13 +6,13 @@ package carRentalSystem;
  * This is the data access layer and main logic for this application is written here
  */
 public class Vehicle {
-    public String Vehicle_id;
-    public int Year;
-    public String Make;
-    public String Model;
-    public int vehicleStatus;
-    public VehicleType vehicleType;
-    public RentalRecord records[] = new RentalRecord[10];
+    String Vehicle_id;
+    private int Year;
+    private String Make;
+    private String Model;
+    int vehicleStatus;
+    VehicleType vehicleType;
+    RentalRecord records[] = new RentalRecord[10];
 
     // Constructor to accept the details of a vehicle
     Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
@@ -34,7 +34,7 @@ public class Vehicle {
     /**
      * Used to rent either available car or available van
      *
-     * @param customerId,rentDate,numOfRentDay accepts customeID, date of rent, no of renting days
+     * @param customerId,rentDate,numOfRentDay accepts customerID, date of rent, no of renting days
      * @return True or false as to vehicle is successfully rented or not
      */
     public boolean rent(String customerId, DateTime rentDate, int numOfRentDay) {
@@ -85,17 +85,7 @@ public class Vehicle {
         if (this.Vehicle_id.contains("C_")) {
             repository = this.Vehicle_id + ":" + String.valueOf(this.Year) + ":" + this.Make + ":" + this.Model + ":" + String.valueOf(this.vehicleType.getSeats("car")) + ":";
         }
-        switch (this.vehicleStatus) {
-            case 0:
-                repository += "Available";
-                break;
-            case 1:
-                repository += "Rented";
-                break;
-            case 2:
-                repository += "Maintenance";
-                break;
-        }
+        repository = vehicleStatusSuffix(repository);
         return repository;
     }
 
@@ -109,26 +99,34 @@ public class Vehicle {
         else {
             data += String.valueOf(this.vehicleType.getSeats("van")) + "\n Status:\t";
         }
-        switch (this.vehicleStatus) {
-            case 0:
-                data += "Available";
-                break;
-            case 1:
-                data += "Rented";
-                break;
-            case 2:
-                data += "Maintenance";
-                break;
-        }
+        data = vehicleStatusSuffix(data);
         return data;
 
+    }
+
+    /*
+     * Add the vehicle status to the end of the string
+     */
+    private String vehicleStatusSuffix(String stringToAdd) {
+        switch (this.vehicleStatus) {
+            case 0:
+                stringToAdd += "Available";
+                break;
+            case 1:
+                stringToAdd += "Rented";
+                break;
+            case 2:
+                stringToAdd += "Maintenance";
+                break;
+        }
+        return stringToAdd;
     }
 
     /**
      * Method used to get last element index
      */
     public int getLastElementIndex() {
-        int index = 0;
+        int index;
         for (index = 0; this.records[index] != null; index++) ;
         return index - 1;
     }

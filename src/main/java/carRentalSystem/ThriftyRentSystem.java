@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * This the main class used to get details from the user and display the menu driven options
- * This class acts as the businedd layer in our applications
+ * This class acts as the business layer in our applications
  */
 
 class ThriftyRentSystem {
@@ -18,7 +18,7 @@ class ThriftyRentSystem {
 
     /**
      * This the method called from main method
-     * this contains the menudriven interface to communicate with the user
+     * this contains the menu driven interface to communicate with the user
      */
     public void run() {
 
@@ -97,7 +97,7 @@ class ThriftyRentSystem {
         String model = scan.nextLine();
 
         if (vehicleType.equalsIgnoreCase("car")) {
-            System.out.print("Vehicle ID: C_");
+            System.out.print("Vehicle ID (Just the number): C_");
             vehicleID = scan.nextLine();
             vehicleID = "C_" + vehicleID;
             if (this.cars[0] != null && vehicleID.contains("C_")) {
@@ -121,7 +121,7 @@ class ThriftyRentSystem {
             }
         }
         if (vehicleType.equalsIgnoreCase("van")) {
-            System.out.print("Vehicle ID: V_");
+            System.out.print("Vehicle ID (Just the number): V_");
             vehicleID = scan.nextLine();
             vehicleID = "V_" + vehicleID;
             if (this.vans[0] != null && vehicleID.contains("V_")) {
@@ -141,15 +141,13 @@ class ThriftyRentSystem {
                 maintenanceDate = scan.nextLine();
             }
             String dateSplit[] = maintenanceDate.split("/");
-            DateTime Lastmain = new DateTime(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]));
+            DateTime lastMain = new DateTime(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]));
             if (i < 50) {
-                Vehicle newVehicle = new Van(vehicleID, year, make, model, 0, new VehicleType(seats, Lastmain));
+                Vehicle newVehicle = new Van(vehicleID, year, make, model, 0, new VehicleType(seats, lastMain));
                 this.vans[i] = (Van) newVehicle;
                 System.out.println(newVehicle.toString());
             }
         }
-
-
     }
 
 
@@ -308,8 +306,8 @@ class ThriftyRentSystem {
                     System.out.print("Return date( dd/mm/yyyy): ");
                     String date = sc.next();
                     String dates[] = date.split("/");
-                    DateTime returndate = new DateTime(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2]));
-                    if (this.vans[i].returnVehicle(returndate)) {
+                    DateTime returnDate = new DateTime(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2]));
+                    if (this.vans[i].returnVehicle(returnDate)) {
                         System.out.println(this.vans[i].records[this.vans[i].getLastElementIndex()].getDetails());
                     } else {
                         System.out.println("Vehicle cannot be returned");
@@ -453,7 +451,7 @@ class ThriftyRentSystem {
      */
 
     private void getDetails() {
-        if (cars[0] != null && vans[0] != null) {
+        if (cars[0] == null && vans[0] == null) {
             System.out.println("There are no cars or vans to display, please enter some vehicles and try again");
             return;
         }
@@ -461,11 +459,13 @@ class ThriftyRentSystem {
             System.out.println("***********Cars**********");
             for (int i = 0; this.cars[i] != null; i++)
                 System.out.println(this.cars[i].getDetails());
+            System.out.print("\n");
         }
         if (vans[0] != null) {
             System.out.println("***********Vans**********");
             for (int i = 0; this.vans[i] != null; i++)
                 System.out.println(this.vans[i].getDetails());
+            System.out.print("\n");
         }
     }
 }

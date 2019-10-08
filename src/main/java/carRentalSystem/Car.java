@@ -6,8 +6,6 @@ package carRentalSystem;
  * It extends Vehicle so it has all the features of a vehicle
  */
 public class Car extends Vehicle {
-
-
     private double rentRate = 78;
     private double lateFee;
     private int seats = 0;
@@ -48,13 +46,13 @@ public class Car extends Vehicle {
             vehicleType = "van";
 
         if (this.vehicleStatus != 0) {
-            DateTime estdate = this.records[this.getLastElementIndex()].getEstimatedReturnDate();
+            DateTime estDate = this.records[this.getLastElementIndex()].getEstimatedReturnDate();
             DateTime rentDate = this.records[this.getLastElementIndex()].getRentDate();
-            if (vehicleType.equals("car") && DateTime.diffDays(returnDate, estdate) < 0 && DateTime.diffDays(returnDate, rentDate) < this.vehicleType.canBeRentedForMinimumDays(rentDate, vehicleType)) {
+            if (vehicleType.equals("car") && DateTime.diffDays(returnDate, estDate) < 0 && DateTime.diffDays(returnDate, rentDate) < this.vehicleType.canBeRentedForMinimumDays(rentDate, vehicleType)) {
                 return false;
             } else {
 
-                this.records[this.getLastElementIndex()].setData(returnDate, this.rentRate * DateTime.diffDays(returnDate, rentDate), this.getLateFee(returnDate, estdate));
+                this.records[this.getLastElementIndex()].setData(returnDate, this.rentRate * DateTime.diffDays(returnDate, rentDate), this.getLateFee(returnDate, estDate));
                 this.vehicleStatus = 0;
                 return true;
             }

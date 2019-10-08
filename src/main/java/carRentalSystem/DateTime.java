@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.sql.Date;
 
 public class DateTime {
-
     private long advance;
     private long time;
 

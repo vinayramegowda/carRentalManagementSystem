@@ -8,9 +8,9 @@ public class RentalRecord extends DateTime {
     private Double RentalFee;
     private Double LateFee;
 
-    RentalRecord(String RentId, DateTime Rentdate, DateTime EstimatedReturnDate) {
+    RentalRecord(String RentId, DateTime RentDate, DateTime EstimatedReturnDate) {
         this.RentId = RentId;
-        this.RentDate = Rentdate;
+        this.RentDate = RentDate;
         this.EstimatedReturnDate = EstimatedReturnDate;
     }
 
