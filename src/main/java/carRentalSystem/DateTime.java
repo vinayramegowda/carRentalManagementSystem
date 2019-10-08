@@ -12,11 +12,6 @@ public class DateTime {
         time = System.currentTimeMillis();
     }
 
-    public DateTime(int setClockForwardInDays) {
-        advance = ((setClockForwardInDays * 24L + 0) * 60L) * 60000L;
-        time = System.currentTimeMillis() + advance;
-    }
-
     public DateTime(DateTime startDate, int setClockForwardInDays) {
         advance = ((setClockForwardInDays * 24L + 0) * 60L) * 60000L;
         time = startDate.getTime() + advance;
@@ -38,11 +33,6 @@ public class DateTime {
 
     public String toString() {
         return getFormattedDate();
-    }
-
-    public static String getCurrentTime() {
-        Date date = new Date(System.currentTimeMillis()); // returns current Date/Time
-        return date.toString();
     }
 
     public String getFormattedDate() {
@@ -82,10 +72,5 @@ public class DateTime {
         java.util.Date date = calendar.getTime();
 
         time = date.getTime();
-    }
-
-    // Advances date/time by specified days, hours and mins for testing purposes
-    public void setAdvance(int days, int hours, int mins) {
-        advance = ((days * 24L + hours) * 60L) * 60000L;
     }
 }

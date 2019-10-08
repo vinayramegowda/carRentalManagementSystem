@@ -13,7 +13,6 @@ class Van extends Vehicle {
     //Constructor to accept van details
     Van(String vehicleId, int year, String make, String model, int status, VehicleType vehicleType) {
         super(vehicleId, year, make, model, status, vehicleType);
-        this.rate = rate;
     }
 
     /**
@@ -83,6 +82,8 @@ class Van extends Vehicle {
     /**
      * Method used to get details of van with their rental history
      * Prints the rental record of van
+     *
+     * @return details
      */
 
     public String getDetails() {

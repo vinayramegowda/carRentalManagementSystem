@@ -17,7 +17,7 @@ public class VehicleType {
     }
 
     //Constructor for Van type
-    VehicleType(int seats, DateTime LastMaintenance) {
+    public VehicleType(int seats, DateTime LastMaintenance) {
         this.vanSeats = seats;
         this.LastMaintenance = LastMaintenance;
     }
@@ -38,13 +38,6 @@ public class VehicleType {
      */
     public int getCarSeats() {
         return this.carSeats;
-    }
-
-    /**
-     * method to set seats of vehicle by accepting seats
-     */
-    public void setCarSeats(int seats) {
-        this.carSeats = seats;
     }
 
     /**

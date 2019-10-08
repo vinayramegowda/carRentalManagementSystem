@@ -15,7 +15,7 @@ public class Vehicle {
     RentalRecord records[] = new RentalRecord[10];
 
     // Constructor to accept the details of a vehicle
-    Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
+    public Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
         this.Vehicle_id = VehicleId;
         this.Year = Year;
         this.Make = Make;
@@ -46,7 +46,7 @@ public class Vehicle {
         if (this.vehicleStatus != 0 || numOfRentDay < this.vehicleType.canBeRentedForMinimumDays(rentDate, typeOfVehicle) || numOfRentDay >= 14 || numOfRentDay < 2) {
             return false;
         } else if (typeOfVehicle.equals("van")) {
-            if (this.vehicleStatus != 0 || this.vehicleType.IsUnderMaintenance(rentDate, typeOfVehicle, numOfRentDay) || numOfRentDay == 0)
+            if (this.vehicleStatus != 0 || this.vehicleType.IsUnderMaintenance(rentDate, typeOfVehicle, numOfRentDay))
                 return false;
             else {
                 String rentId = this.Vehicle_id + "_" + customerId + "_" + rentDate.getEightDigitDate();
@@ -80,10 +80,10 @@ public class Vehicle {
     public String toString() {
         String repository = "";
         if (this.Vehicle_id.contains("V_")) {
-            repository = this.Vehicle_id + ":" + String.valueOf(this.Year) + ":" + this.Make + ":" + this.Model + ":15" + ":";
+            repository = this.Vehicle_id + ":" + this.Year + ":" + this.Make + ":" + this.Model + ":15" + ":";
         }
         if (this.Vehicle_id.contains("C_")) {
-            repository = this.Vehicle_id + ":" + String.valueOf(this.Year) + ":" + this.Make + ":" + this.Model + ":" + String.valueOf(this.vehicleType.getSeats("car")) + ":";
+            repository = this.Vehicle_id + ":" + this.Year + ":" + this.Make + ":" + this.Model + ":" + this.vehicleType.getSeats("car") + ":";
         }
         repository = vehicleStatusSuffix(repository);
         return repository;
@@ -93,11 +93,11 @@ public class Vehicle {
      * Method used to get details of car or van with their rental history
      */
     public String getDetails() {
-        String data = "Vehicle ID:\t" + this.Vehicle_id + "\n Year:\t " + String.valueOf(this.Year) + "\n Make:\t" + this.Make + "\n Model:\t" + this.Model + "\n Number of Seats:\t";
+        String data = "Vehicle ID:\t" + this.Vehicle_id + "\n Year:\t " + this.Year + "\n Make:\t" + this.Make + "\n Model:\t" + this.Model + "\n Number of Seats:\t";
         if (this.Vehicle_id.contains("C_"))
-            data += String.valueOf(this.vehicleType.getSeats("car")) + "\n Status:\t";
+            data += this.vehicleType.getSeats("car") + "\n Status:\t";
         else {
-            data += String.valueOf(this.vehicleType.getSeats("van")) + "\n Status:\t";
+            data += this.vehicleType.getSeats("van") + "\n Status:\t";
         }
         data = vehicleStatusSuffix(data);
         return data;

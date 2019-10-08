@@ -64,7 +64,7 @@ public class Car extends Vehicle {
     /**
      * sets the vehicle status to available after maintenance
      *
-     * @return Returns true if returned else false
+     * @return boolean Returns true if returned else false
      */
     public boolean completeMaintenance() {
         if (super.vehicleStatus != 2)
