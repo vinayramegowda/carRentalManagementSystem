@@ -14,13 +14,13 @@ class ThriftyRentSystem {
     private Car[] cars = new Car[50];
     private Van[] vans = new Van[50];
 
-    public static DateFormat format = new SimpleDateFormat("dd/MM/yyyy"); //Basic format expected from the User
+    private static DateFormat format = new SimpleDateFormat("dd/MM/yyyy"); //Basic format expected from the User
 
     /**
      * This the method called from main method
      * this contains the menu driven interface to communicate with the user
      */
-    public void run() {
+    void run() {
 
         while (true) {
 

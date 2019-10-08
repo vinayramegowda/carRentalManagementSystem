@@ -12,7 +12,7 @@ public class Vehicle {
     private String Model;
     int vehicleStatus;
     VehicleType vehicleType;
-    RentalRecord records[] = new RentalRecord[10];
+    RentalRecord[] records = new RentalRecord[10];
 
     // Constructor to accept the details of a vehicle
     public Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
@@ -37,7 +37,7 @@ public class Vehicle {
      * @param customerId,rentDate,numOfRentDay accepts customerID, date of rent, no of renting days
      * @return True or false as to vehicle is successfully rented or not
      */
-    public boolean rent(String customerId, DateTime rentDate, int numOfRentDay) {
+    boolean rent(String customerId, DateTime rentDate, int numOfRentDay) {
         String typeOfVehicle;
         if (this.Vehicle_id.contains("C_"))
             typeOfVehicle = "car";
@@ -67,7 +67,7 @@ public class Vehicle {
      *
      * @return Returns true if returned else false
      */
-    public boolean performMaintenance() {
+    boolean performMaintenance() {
         if (this.vehicleStatus == 1 || this.vehicleStatus == 2)
             return false;
         this.vehicleStatus = 2;
@@ -125,7 +125,7 @@ public class Vehicle {
     /**
      * Method used to get last element index
      */
-    public int getLastElementIndex() {
+    int getLastElementIndex() {
         int index;
         for (index = 0; this.records[index] != null; index++) ;
         return index - 1;

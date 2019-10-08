@@ -6,8 +6,6 @@ package carRentalSystem;
  * It extends Vehicle so it has all the features of a vehicle
  */
 class Van extends Vehicle {
-
-    private double rate = 235;
     private double lateFee = 299;
 
     //Constructor to accept van details
@@ -21,7 +19,7 @@ class Van extends Vehicle {
      * @param endDate,startDate accepts start date and end date
      * @return lateFee the late fee
      */
-    public double getLateFee(DateTime endDate, DateTime startDate) {
+    private double getLateFee(DateTime endDate, DateTime startDate) {
         if (DateTime.diffDays(endDate, startDate) > 0)
             return this.lateFee * DateTime.diffDays(endDate, startDate);
         else
@@ -34,7 +32,7 @@ class Van extends Vehicle {
      * @param returnDate accepts the date as ro when it has to be returned
      * @return Returns true if returned else false with appropriate messages
      */
-    public boolean returnVehicle(DateTime returnDate) {
+    boolean returnVehicle(DateTime returnDate) {
         String vehicleType;
         if (this.Vehicle_id.contains("C_"))
             vehicleType = "car";
@@ -47,7 +45,8 @@ class Van extends Vehicle {
             if (vehicleType.equals("van") && DateTime.diffDays(returnDate, rentDate) < 1) {
                 return false;
             } else {
-                double rent = this.rate * DateTime.diffDays(returnDate, this.records[this.getLastElementIndex()].getRentDate());
+                double rate = 235;
+                double rent = rate * DateTime.diffDays(returnDate, this.records[this.getLastElementIndex()].getRentDate());
                 this.records[this.getLastElementIndex()].setData(returnDate, rent, this.getLateFee(returnDate, estimatedDate));
                 this.vehicleStatus = 0;
                 return true;
@@ -61,7 +60,7 @@ class Van extends Vehicle {
      * @param completionDate accepts the date as ro when it has to be maintained
      * @return Returns true if returned else false with appropriate messages
      */
-    public boolean completeMaintenance(DateTime completionDate) {
+    boolean completeMaintenance(DateTime completionDate) {
         if (this.vehicleStatus != 2 && DateTime.diffDays(completionDate, this.vehicleType.getLastMaintenance()) < 12)
             return false;
         this.vehicleType.setLastMaintenance(completionDate);
@@ -87,24 +86,23 @@ class Van extends Vehicle {
      */
 
     public String getDetails() {
-        String details = super.getDetails();
-        details += "\nLast maintenance date:\t" + (this.vehicleType.getLastMaintenance()).toString();
+        StringBuilder details = new StringBuilder(super.getDetails());
+        details.append("\nLast maintenance date:\t").append((this.vehicleType.getLastMaintenance()).toString());
         if (this.records[0] == null)
-            details += "\nRENTAL RECORD:\tempty";
+            details.append("\nRENTAL RECORD:\tempty");
         else {
-            details += "\nRENTAL RECORD:\n";
+            details.append("\nRENTAL RECORD:\n");
             int count = 0;
             for (int index = 0; this.records[index] != null; index++)
                 count++;
             for (int index = count - 1; index >= 0; index--) {
-                details += this.records[index].getDetails() + "                     \n";
+                details.append(this.records[index].getDetails()).append("                     \n");
                 for (int innerIndex = 0; innerIndex < 10; innerIndex++)
-                    details += "-";
-                details += "                     \n";
+                    details.append("-");
+                details.append("                     \n");
             }
         }
-        return details;
+        return details.toString();
     }
-
 
 }

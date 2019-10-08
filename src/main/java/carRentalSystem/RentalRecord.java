@@ -14,37 +14,33 @@ public class RentalRecord extends DateTime {
         this.EstimatedReturnDate = EstimatedReturnDate;
     }
 
-    public void setData(DateTime ActualDate, Double RentalFee, Double LateFee) {
+    void setData(DateTime ActualDate, Double RentalFee, Double LateFee) {
         this.ActualReturnDate = ActualDate;
         this.RentalFee = RentalFee;
         this.LateFee = LateFee;
     }
 
-    public DateTime getEstimatedReturnDate() {
+    DateTime getEstimatedReturnDate() {
         return this.EstimatedReturnDate;
     }
 
-    public DateTime getRentDate() {
+    DateTime getRentDate() {
         return this.RentDate;
     }
 
     public String toString() {
         if (this.ActualReturnDate == null && this.RentalFee == null && this.LateFee == null) {
-            String data = this.RentId + ":" + this.RentDate.toString() + ":" + this.EstimatedReturnDate.toString() + ":none:none:none";
-            return data;
+            return this.RentId + ":" + this.RentDate.toString() + ":" + this.EstimatedReturnDate.toString() + ":none:none:none";
         } else {
             return this.RentId + ":" + this.RentDate.toString() + ":" + this.EstimatedReturnDate.toString() + ":" + this.ActualReturnDate.toString() + ":" + this.RentalFee.toString() + ":" + this.LateFee.toString();
         }
     }
 
-    public String getDetails() {
+    String getDetails() {
         if (this.ActualReturnDate == null && this.RentalFee == null && this.LateFee == null) {
-            String data =
-                    "Record ID:             " + this.RentId
-                            + "\nRent Date:             " + this.RentDate.toString()
-                            + "\nEstimated Return Date: " + this.EstimatedReturnDate.toString();
-
-            return data;
+            return "Record ID:             " + this.RentId
+                    + "\nRent Date:             " + this.RentDate.toString()
+                    + "\nEstimated Return Date: " + this.EstimatedReturnDate.toString();
         } else {
             return "Record ID:             " + this.RentId
                     + "\nRent Date:             " + this.RentDate.toString()
