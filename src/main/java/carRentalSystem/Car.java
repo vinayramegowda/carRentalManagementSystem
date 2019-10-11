@@ -51,7 +51,6 @@ public class Car extends Vehicle {
             if (vehicleType.equals("car") && DateTime.diffDays(returnDate, estDate) < 0 && DateTime.diffDays(returnDate, rentDate) < this.vehicleType.canBeRentedForMinimumDays(rentDate, vehicleType)) {
                 return false;
             } else {
-
                 this.records[this.getLastElementIndex()].setData(returnDate, this.rentRate * DateTime.diffDays(returnDate, rentDate), this.getLateFee(returnDate, estDate));
                 this.vehicleStatus = 0;
                 return true;
@@ -81,9 +80,9 @@ public class Car extends Vehicle {
     public String getDetails() {
         String details = super.getDetails();
         if (this.records[0] == null) {
-            details += "\nRENTAL RECORD:\tempty";
+            details += "\n RENTAL RECORD:\tempty";
         } else {
-            details += "\nRENTAL RECORD\n";
+            details += "\n RENTAL RECORD\n";
             int count = 0;
             for (int index = 0; this.records[index] != null; index++)
                 count++;

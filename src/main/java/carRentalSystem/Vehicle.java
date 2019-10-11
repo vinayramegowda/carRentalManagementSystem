@@ -13,6 +13,7 @@ public class Vehicle {
     int vehicleStatus;
     VehicleType vehicleType;
     RentalRecord[] records = new RentalRecord[10];
+    // ArrayList<RentalRecord> records1 = new ArrayList<RentalRecord>();
 
     // Constructor to accept the details of a vehicle
     public Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
@@ -108,16 +109,12 @@ public class Vehicle {
      * Add the vehicle status to the end of the string
      */
     private String vehicleStatusSuffix(String stringToAdd) {
-        switch (this.vehicleStatus) {
-            case 0:
-                stringToAdd += "Available";
-                break;
-            case 1:
-                stringToAdd += "Rented";
-                break;
-            case 2:
-                stringToAdd += "Maintenance";
-                break;
+        if (vehicleStatus == 0) {
+            stringToAdd += "Available";
+        } else if (vehicleStatus == 1) {
+            stringToAdd += "Rented";
+        } else if (vehicleStatus == 2) {
+            stringToAdd += "Maintenance";
         }
         return stringToAdd;
     }
