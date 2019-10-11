@@ -7,12 +7,10 @@ package carRentalSystem;
  */
 public class Car extends Vehicle {
     private double rentRate = 78;
-    private double lateFee;
-    private int seats = 0;
 
     public Car(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
         super(VehicleId, Year, Make, Model, status, vehicleType);
-        seats = vehicleType.getCarSeats();
+        int seats = vehicleType.getCarSeats();
         if (seats == 7)
             rentRate = 113;
     }
@@ -24,12 +22,12 @@ public class Car extends Vehicle {
      * @return lateFee the late fee
      */
     public double getLateFee(DateTime endDate, DateTime startDate) {
-
+        double lateFee;
         if (DateTime.diffDays(endDate, startDate) > 0)
-            this.lateFee = 1.25 * this.rentRate * DateTime.diffDays(endDate, startDate);
+            lateFee = 1.25 * this.rentRate * DateTime.diffDays(endDate, startDate);
         else
-            this.lateFee = 0.0;
-        return this.lateFee;
+            lateFee = 0.0;
+        return lateFee;
     }
 
     /**
@@ -78,22 +76,22 @@ public class Car extends Vehicle {
      * Prints the rental record of car
      */
     public String getDetails() {
-        String details = super.getDetails();
+        StringBuilder details = new StringBuilder(super.getDetails());
         if (records.isEmpty()) {
-            details += "\n RENTAL RECORD:\tempty";
+            details.append("\n RENTAL RECORD:\tempty");
         } else {
-            details += "\n RENTAL RECORD\n";
+            details.append("\n RENTAL RECORD\n");
             int count = 0;
             for (int index = 0; index < records.size(); index++)
                 count++;
             for (int index = count - 1; index >= 0; index--) {
-                details += this.records.get(index).getDetails() + "                     \n";
+                details.append(this.records.get(index).getDetails()).append("                     \n");
                 for (int innerIndex = 0; innerIndex < 10; innerIndex++)
-                    details += "-";
-                details += "                     \n";
+                    details.append("-");
+                details.append("                     \n");
             }
         }
-        return details;
+        return details.toString();
     }
 
 }

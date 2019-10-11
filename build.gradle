@@ -5,6 +5,7 @@ plugins {
 group 'com.30062688.501'
 version '1.0-SNAPSHOT'
 
+//noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.8
 
 repositories {
