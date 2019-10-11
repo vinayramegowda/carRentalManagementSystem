@@ -427,7 +427,7 @@ public class ThriftyRentSystem {
                 String date = sc.next();
                 DateTime returnDate = parseDate(date);
                 if (van.returnVehicle(returnDate)) {
-                    System.out.println(van.records[van.getLastElementIndex()].getDetails());
+                    System.out.println(van.records.get(van.getLastElementIndex()).getDetails());
                 } else {
                     System.out.println("Vehicle cannot be returned");
                     return;
@@ -449,7 +449,7 @@ public class ThriftyRentSystem {
                 String date = sc.next();
                 DateTime returnDate = parseDate(date);
                 if (car.returnVehicle(returnDate)) {
-                    System.out.println(car.records[car.getLastElementIndex()].getDetails());
+                    System.out.println(car.records.get(car.getLastElementIndex()).getDetails());
                 } else {
                     System.out.println("Vehicle cannot be returned as it may have been never rented");
                     return;

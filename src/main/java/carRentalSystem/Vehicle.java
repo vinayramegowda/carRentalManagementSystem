@@ -1,5 +1,7 @@
 package carRentalSystem;
 
+import java.util.ArrayList;
+
 /**
  * Class to save all the vehicle details
  * This class contains all the vehicle attributes required for this application
@@ -12,8 +14,8 @@ public class Vehicle {
     private String Model;
     int vehicleStatus;
     VehicleType vehicleType;
-    RentalRecord[] records = new RentalRecord[10];
-    // ArrayList<RentalRecord> records1 = new ArrayList<RentalRecord>();
+    //RentalRecord[] records = new RentalRecord[10];
+    ArrayList<RentalRecord> records = new ArrayList<RentalRecord>();
 
     // Constructor to accept the details of a vehicle
     public Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
@@ -50,17 +52,18 @@ public class Vehicle {
             if (this.vehicleStatus != 0 || this.vehicleType.IsUnderMaintenance(rentDate, typeOfVehicle, numOfRentDay))
                 return false;
             else {
-                String rentId = this.Vehicle_id + "_" + customerId + "_" + rentDate.getEightDigitDate();
-                this.records[this.getLastElementIndex() + 1] = new RentalRecord(rentId, rentDate, new DateTime(rentDate, numOfRentDay));
-                this.vehicleStatus = 1;
-                return true;
+                return addRentalRecord(customerId, rentDate, numOfRentDay);
             }
         } else {
-            String rentId = this.Vehicle_id + "_" + customerId + "_" + rentDate.getEightDigitDate();
-            this.records[this.getLastElementIndex() + 1] = new RentalRecord(rentId, rentDate, new DateTime(rentDate, numOfRentDay));
-            this.vehicleStatus = 1;
-            return true;
+            return addRentalRecord(customerId, rentDate, numOfRentDay);
         }
+    }
+
+    private boolean addRentalRecord(String customerId, DateTime rentDate, int numOfRentDay) {
+        String rentId = this.Vehicle_id + "_" + customerId + "_" + rentDate.getEightDigitDate();
+        this.records.add(records.size(), new RentalRecord(rentId, rentDate, new DateTime(rentDate, numOfRentDay)));
+        this.vehicleStatus = 1;
+        return true;
     }
 
     /**
@@ -123,8 +126,6 @@ public class Vehicle {
      * Method used to get last element index
      */
     int getLastElementIndex() {
-        int index;
-        for (index = 0; this.records[index] != null; index++) ;
-        return index - 1;
+        return records.size()-1;
     }
 }

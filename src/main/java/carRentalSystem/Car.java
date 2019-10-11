@@ -46,12 +46,12 @@ public class Car extends Vehicle {
             vehicleType = "van";
 
         if (this.vehicleStatus != 0) {
-            DateTime estDate = this.records[this.getLastElementIndex()].getEstimatedReturnDate();
-            DateTime rentDate = this.records[this.getLastElementIndex()].getRentDate();
+            DateTime estDate = this.records.get(this.getLastElementIndex()).getEstimatedReturnDate();
+            DateTime rentDate = this.records.get(this.getLastElementIndex()).getRentDate();
             if (vehicleType.equals("car") && DateTime.diffDays(returnDate, estDate) < 0 && DateTime.diffDays(returnDate, rentDate) < this.vehicleType.canBeRentedForMinimumDays(rentDate, vehicleType)) {
                 return false;
             } else {
-                this.records[this.getLastElementIndex()].setData(returnDate, this.rentRate * DateTime.diffDays(returnDate, rentDate), this.getLateFee(returnDate, estDate));
+                this.records.get(this.getLastElementIndex()).setData(returnDate, this.rentRate * DateTime.diffDays(returnDate, rentDate), this.getLateFee(returnDate, estDate));
                 this.vehicleStatus = 0;
                 return true;
             }
@@ -79,15 +79,15 @@ public class Car extends Vehicle {
      */
     public String getDetails() {
         String details = super.getDetails();
-        if (this.records[0] == null) {
+        if (records.isEmpty()) {
             details += "\n RENTAL RECORD:\tempty";
         } else {
             details += "\n RENTAL RECORD\n";
             int count = 0;
-            for (int index = 0; this.records[index] != null; index++)
+            for (int index = 0; index < records.size(); index++)
                 count++;
             for (int index = count - 1; index >= 0; index--) {
-                details += this.records[index].getDetails() + "                     \n";
+                details += this.records.get(index).getDetails() + "                     \n";
                 for (int innerIndex = 0; innerIndex < 10; innerIndex++)
                     details += "-";
                 details += "                     \n";

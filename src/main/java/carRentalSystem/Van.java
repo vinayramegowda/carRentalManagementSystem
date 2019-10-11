@@ -39,15 +39,15 @@ class Van extends Vehicle {
         else
             vehicleType = "van";
         if (this.vehicleStatus != 0) {
-            DateTime estimatedDate = this.records[this.getLastElementIndex()].getEstimatedReturnDate();
-            DateTime rentDate = this.records[this.getLastElementIndex()].getRentDate();
+            DateTime estimatedDate = this.records.get(records.size() - 1).getEstimatedReturnDate();
+            DateTime rentDate = this.records.get(records.size() -1).getRentDate();
 
             if (vehicleType.equals("van") && DateTime.diffDays(returnDate, rentDate) < 1) {
                 return false;
             } else {
                 double rate = 235;
-                double rent = rate * DateTime.diffDays(returnDate, this.records[this.getLastElementIndex()].getRentDate());
-                this.records[this.getLastElementIndex()].setData(returnDate, rent, this.getLateFee(returnDate, estimatedDate));
+                double rent = rate * DateTime.diffDays(returnDate, this.records.get(records.size() - 1).getRentDate());
+                this.records.get(records.size()-1).setData(returnDate, rent, this.getLateFee(returnDate, estimatedDate));
                 this.vehicleStatus = 0;
                 return true;
             }
@@ -88,15 +88,15 @@ class Van extends Vehicle {
     public String getDetails() {
         StringBuilder details = new StringBuilder(super.getDetails());
         details.append("\nLast maintenance date:\t").append((this.vehicleType.getLastMaintenance()).toString());
-        if (this.records[0] == null)
+        if (records.isEmpty())
             details.append("\nRENTAL RECORD:\tempty");
         else {
             details.append("\nRENTAL RECORD:\n");
             int count = 0;
-            for (int index = 0; this.records[index] != null; index++)
+            for (int index = 0; index < records.size(); index++)
                 count++;
             for (int index = count - 1; index >= 0; index--) {
-                details.append(this.records[index].getDetails()).append("                     \n");
+                details.append(records.get(index).getDetails()).append("                     \n");
                 for (int innerIndex = 0; innerIndex < 10; innerIndex++)
                     details.append("-");
                 details.append("                     \n");
