@@ -5,7 +5,7 @@ package carRentalSystem;
  * This class contains all the calculations and details of the van
  * It extends Vehicle so it has all the features of a vehicle
  */
-class Van extends Vehicle {
+public class Van extends Vehicle {
     private double lateFee = 299;
 
     //Constructor to accept van details
@@ -19,7 +19,7 @@ class Van extends Vehicle {
      * @param endDate,startDate accepts start date and end date
      * @return lateFee the late fee
      */
-    private double getLateFee(DateTime endDate, DateTime startDate) {
+    public double getLateFee(DateTime endDate, DateTime startDate) {
         if (DateTime.diffDays(endDate, startDate) > 0)
             return this.lateFee * DateTime.diffDays(endDate, startDate);
         else
@@ -40,14 +40,14 @@ class Van extends Vehicle {
             vehicleType = "van";
         if (this.vehicleStatus != 0) {
             DateTime estimatedDate = this.records.get(records.size() - 1).getEstimatedReturnDate();
-            DateTime rentDate = this.records.get(records.size() -1).getRentDate();
+            DateTime rentDate = this.records.get(records.size() - 1).getRentDate();
 
             if (vehicleType.equals("van") && DateTime.diffDays(returnDate, rentDate) < 1) {
                 return false;
             } else {
                 double rate = 235;
                 double rent = rate * DateTime.diffDays(returnDate, this.records.get(records.size() - 1).getRentDate());
-                this.records.get(records.size()-1).setData(returnDate, rent, this.getLateFee(returnDate, estimatedDate));
+                this.records.get(records.size() - 1).setData(returnDate, rent, this.getLateFee(returnDate, estimatedDate));
                 this.vehicleStatus = 0;
                 return true;
             }

@@ -15,7 +15,7 @@ public class Vehicle {
     int vehicleStatus;
     VehicleType vehicleType;
     //RentalRecord[] records = new RentalRecord[10];
-    ArrayList<RentalRecord> records = new ArrayList<RentalRecord>();
+    ArrayList<RentalRecord> records = new ArrayList<>();
 
     // Constructor to accept the details of a vehicle
     public Vehicle(String VehicleId, int Year, String Make, String Model, int status, VehicleType vehicleType) {
@@ -25,6 +25,10 @@ public class Vehicle {
         this.Model = Model;
         this.vehicleStatus = status;
         this.vehicleType = vehicleType;
+    }
+
+    public int getVehicleStatus() {
+        return this.vehicleStatus;
     }
 
     /**
@@ -126,6 +130,6 @@ public class Vehicle {
      * Method used to get last element index
      */
     int getLastElementIndex() {
-        return records.size()-1;
+        return records.size() - 1;
     }
 }

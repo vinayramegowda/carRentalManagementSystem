@@ -17,6 +17,14 @@ public class ThriftyRentSystem {
 
     private static DateFormat format = new SimpleDateFormat("dd/MM/yyyy"); //Basic format expected from the User
 
+    public ArrayList<Car> getCars() {
+        return cars;
+    }
+
+    public ArrayList<Van> getVans() {
+        return vans;
+    }
+
     /**
      * This the method called from main method
      * this contains the menu driven interface to communicate with the user
@@ -27,14 +35,14 @@ public class ThriftyRentSystem {
             Scanner sc = new Scanner(System.in);
             int choice = Integer.parseInt(sc.nextLine());
 
-            if (choice == 1){
+            if (choice == 1) {
                 this.add(sc);           //Method used to add either cars or vans
             } else if (choice == 2) {
                 this.rent(sc);          //Method used to rent either cars or vans
             } else if (choice == 3) {
-                this.returnCar(sc);     //Method used to return a car after being rented
+                this.returnVehicle(sc);     //Method used to return a car after being rented
             } else if (choice == 4) {
-                this.vanMaintenance(sc); //Method used to set either car or van to maintenance
+                this.startMaintenance(sc); //Method used to set either car or van to maintenance
             } else if (choice == 5) {
                 this.completeMaintenance(sc);  //Method used to complete the maintenance
             } else if (choice == 6) {
@@ -76,8 +84,7 @@ public class ThriftyRentSystem {
 
         if (vehicleType.equalsIgnoreCase("car")) {
             addCar(scan, i, year, make, model);
-        }
-        else if (vehicleType.equalsIgnoreCase("van")) {
+        } else if (vehicleType.equalsIgnoreCase("van")) {
             addVan(scan, i, year, make, model);
         }
     }
@@ -87,7 +94,7 @@ public class ThriftyRentSystem {
      *
      * @param sc variable
      */
-    private void rent(Scanner sc) {
+    public void rent(Scanner sc) {
         System.out.print("Vehicle id: ");
         String id = sc.nextLine();
         String type = "";
@@ -97,16 +104,14 @@ public class ThriftyRentSystem {
         if (id.contains("C_") && cars.isEmpty()) {
             System.out.println("There are no cars currently at the moment.");
             return;
-        }
-        else if (id.contains("C_")){
+        } else if (id.contains("C_")) {
             type = checkCarStatus(id, type);
             if (type == null) return;
         }
         if (id.contains("V_") && vans.isEmpty()) {
             System.out.println("There are no vans currently at the moment.");
             return;
-        }
-        else if (id.contains("V_")) {
+        } else if (id.contains("V_")) {
             type = checkVanStatus(id, type);
             if (type == null) return;
         }
@@ -127,17 +132,17 @@ public class ThriftyRentSystem {
      *
      * @param sc variable
      */
-    private void returnCar(Scanner sc) {
+    public void returnVehicle(Scanner sc) {
         System.out.print("VehicleId: ");
         String id = sc.next();
         if (checkValidID(id)) return;
-        if (checkVehiclesExist()) return;
 
-        if (id.contains("C_")) {
-            returnCar(sc, id);
-        }
-        else if (id.contains("V_")) {
+        if (id.contains("C_") && !cars.isEmpty()) {
+            returnVehicle(sc, id);
+        } else if (id.contains("V_") && !vans.isEmpty()) {
             returnVan(sc, id);
+        } else {
+            System.out.println("Missing vehicle chosen");
         }
     }
 
@@ -147,15 +152,14 @@ public class ThriftyRentSystem {
      * @param sc variable
      */
 
-    private void vanMaintenance(Scanner sc) {
+    public void startMaintenance(Scanner sc) {
         System.out.print("Vehicle id: ");
         String id = sc.next();
 
         if (id.contains("C_") && !cars.isEmpty()) {
             carMaintenance(id);
-        }
-        else if (id.contains("V_") && !vans.isEmpty()) {
-            vanMaintenance(id);
+        } else if (id.contains("V_") && !vans.isEmpty()) {
+            startMaintenance(id);
         }
     }
 
@@ -164,19 +168,18 @@ public class ThriftyRentSystem {
      *
      * @param sc variable
      */
-    private void completeMaintenance(Scanner sc) {
+    public void completeMaintenance(Scanner sc) {
         System.out.print("Enter vehicle ID: ");
         String id = sc.next();
 
         if (id.contains("C_") && !cars.isEmpty()) {
             completeCarMaintenance(sc, id);
-        }
-        else if (id.contains("V_") && !vans.isEmpty()) {
+        } else if (id.contains("V_") && !vans.isEmpty()) {
             completeVanMaintenance(sc, id);
         }
     }
 
-    private boolean checkMaintenanceStatus(String id, Van van, DateTime maintenanceDate) {
+    public boolean checkMaintenanceStatus(String id, Van van, DateTime maintenanceDate) {
         if (van.completeMaintenance(maintenanceDate))
             System.out.println("Vehicle " + id + " has all maintenance completed and ready for rent");
         else {
@@ -186,20 +189,6 @@ public class ThriftyRentSystem {
         return false;
     }
 
-    /*
-     * If there are vehicles in the system it will return false.
-     */
-    private boolean checkVehiclesExist() {
-        if (cars.isEmpty()) {
-            System.out.println("There are no cars, please add cars.");
-            return true;
-        }
-        if (vans.isEmpty()) {
-            System.out.println("There are no vans, please add cars.");
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Method used to get details of car or van with their rental history
@@ -236,7 +225,7 @@ public class ThriftyRentSystem {
         vehicleID = scan.nextLine();
         vehicleID = "C_" + vehicleID;
         if (!cars.isEmpty() && vehicleID.contains("C_")) {
-            for (i = 0; i < cars.size() ; i++) {
+            for (i = 0; i < cars.size(); i++) {
                 if (checkIDExists(vehicleID, cars.get(i).getVehicleId())) return;
             }
         }
@@ -441,7 +430,7 @@ public class ThriftyRentSystem {
         }
     }
 
-    private void returnCar(Scanner sc, String id) {
+    private void returnVehicle(Scanner sc, String id) {
         boolean flag = false;
         for (Car car : cars) {
             if ((car.getVehicleId()).equals(id)) {
@@ -464,7 +453,7 @@ public class ThriftyRentSystem {
         }
     }
 
-    private void vanMaintenance(String id) {
+    private void startMaintenance(String id) {
         boolean flag = false;
         for (Van van : vans) {
             if ((van.getVehicleId()).equals(id)) {
